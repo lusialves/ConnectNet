@@ -212,7 +212,7 @@ Com o MySQL configurado, as mesmas verificações da interface podem ser executa
 
 ---
 
-## Sobre o Projeto (About)
+## Sobre o Projeto
 
 O **ConnectNet** foi desenvolvido em 2026 para o curso de Tecnologia em Sistemas para Internet da **Universidade Estadual do Piauí – UESPI (EAD - UAPPI)**, Polo Jerumenha.
 
