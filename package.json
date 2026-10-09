@@ -1,7 +1,25 @@
 {
   "dependencies": {
-    "cors": "^2.8.6",
-    "express": "^5.2.1",
-    "mysql2": "^3.24.4"
+    "express": "5.2.1",
+    "mysql2": "3.24.5"
+  },
+  "name": "connectnet-entrega3",
+  "version": "3.0.0",
+  "private": true,
+  "description": "ConnectNet - API e interface da Entrega 3",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node --watch backend/server.js",
+    "test": "node --test tests/api.test.cjs",
+    "db:setup": "node backend/scripts/setup-db.js",
+    "test:ui": "node tests/ui.test.cjs",
+    "test:mysql": "node tests/run-mysql.cjs",
+    "test:ui:mysql": "node tests/run-mysql.cjs --ui"
+  },
+  "devDependencies": {
+    "playwright": "1.64.0"
   }
 }

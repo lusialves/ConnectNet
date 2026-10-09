@@ -1,0 +1,257 @@
+{
+  "date": "2026-10-09",
+  "mode": "mysql",
+  "server": {
+    "version": "8.0.46-0ubuntu0.24.04.3",
+    "comment": "(Ubuntu)"
+  },
+  "node": "v24.19.0",
+  "database": "connectnet_entrega3_validacao",
+  "tables": [
+    {
+      "tabela": "chamado",
+      "engine": "InnoDB",
+      "collation": "utf8mb4_0900_ai_ci"
+    },
+    {
+      "tabela": "cliente",
+      "engine": "InnoDB",
+      "collation": "utf8mb4_0900_ai_ci"
+    },
+    {
+      "tabela": "fatura",
+      "engine": "InnoDB",
+      "collation": "utf8mb4_0900_ai_ci"
+    },
+    {
+      "tabela": "plano",
+      "engine": "InnoDB",
+      "collation": "utf8mb4_0900_ai_ci"
+    },
+    {
+      "tabela": "usuario",
+      "engine": "InnoDB",
+      "collation": "utf8mb4_0900_ai_ci"
+    }
+  ],
+  "constraints": [
+    {
+      "tabela": "chamado",
+      "nome": "fk_chamado_cliente",
+      "tipo": "FOREIGN KEY"
+    },
+    {
+      "tabela": "chamado",
+      "nome": "PRIMARY",
+      "tipo": "PRIMARY KEY"
+    },
+    {
+      "tabela": "cliente",
+      "nome": "email",
+      "tipo": "UNIQUE"
+    },
+    {
+      "tabela": "cliente",
+      "nome": "fk_cliente_plano",
+      "tipo": "FOREIGN KEY"
+    },
+    {
+      "tabela": "cliente",
+      "nome": "PRIMARY",
+      "tipo": "PRIMARY KEY"
+    },
+    {
+      "tabela": "fatura",
+      "nome": "ck_fatura_valor",
+      "tipo": "CHECK"
+    },
+    {
+      "tabela": "fatura",
+      "nome": "fk_fatura_cliente",
+      "tipo": "FOREIGN KEY"
+    },
+    {
+      "tabela": "fatura",
+      "nome": "PRIMARY",
+      "tipo": "PRIMARY KEY"
+    },
+    {
+      "tabela": "fatura",
+      "nome": "uq_fatura_competencia",
+      "tipo": "UNIQUE"
+    },
+    {
+      "tabela": "plano",
+      "nome": "ck_plano_preco",
+      "tipo": "CHECK"
+    },
+    {
+      "tabela": "plano",
+      "nome": "PRIMARY",
+      "tipo": "PRIMARY KEY"
+    },
+    {
+      "tabela": "usuario",
+      "nome": "ck_usuario_perfil",
+      "tipo": "CHECK"
+    },
+    {
+      "tabela": "usuario",
+      "nome": "cliente_id",
+      "tipo": "UNIQUE"
+    },
+    {
+      "tabela": "usuario",
+      "nome": "email",
+      "tipo": "UNIQUE"
+    },
+    {
+      "tabela": "usuario",
+      "nome": "fk_usuario_cliente",
+      "tipo": "FOREIGN KEY"
+    },
+    {
+      "tabela": "usuario",
+      "nome": "PRIMARY",
+      "tipo": "PRIMARY KEY"
+    }
+  ],
+  "counts": {
+    "chamado": 3,
+    "cliente": 4,
+    "fatura": 3,
+    "plano": 4,
+    "usuario": 6
+  },
+  "automated": {
+    "api": 21,
+    "database": 9,
+    "passed": 30,
+    "failed": 0
+  },
+  "ui": {
+    "passed": 15,
+    "failed": 0,
+    "record": "validacao-ui-mysql.json"
+  },
+  "health": {
+    "status": "ok",
+    "sistema": "ConnectNet",
+    "versao": "3.0.0",
+    "modo": "mysql"
+  },
+  "persistence": {
+    "apiRestart": true,
+    "mysqlRestart": true,
+    "loginPreserved": true,
+    "before": {
+      "planos": {
+        "id": 4,
+        "nome": "Fibra Persistência MySQL",
+        "velocidade": "750 Mbps",
+        "preco": 129.9,
+        "descricao": "Registro validado após reiniciar a API e o banco."
+      },
+      "clientes": {
+        "id": 4,
+        "nome": "Cliente Persistência",
+        "email": "persistencia@example.test",
+        "telefone": "89999997777",
+        "endereco": "Rua da Persistência, 2026",
+        "data_cadastro": "2026-10-09",
+        "status": "ATIVO",
+        "plano_id": 4
+      },
+      "faturas": {
+        "id": 3,
+        "cliente_id": 4,
+        "competencia": "2026-11",
+        "valor": 129.9,
+        "data_emissao": "2026-10-09",
+        "data_vencimento": "2026-11-20",
+        "status": "PENDENTE"
+      },
+      "chamados": {
+        "id": 3,
+        "cliente_id": 4,
+        "descricao": "Chamado mantido após reiniciar a API e o MySQL.",
+        "data_abertura": "2026-10-09",
+        "status": "ABERTO",
+        "prioridade": "ALTA"
+      }
+    },
+    "afterAPI": {
+      "planos": {
+        "id": 4,
+        "nome": "Fibra Persistência MySQL",
+        "velocidade": "750 Mbps",
+        "preco": 129.9,
+        "descricao": "Registro validado após reiniciar a API e o banco."
+      },
+      "clientes": {
+        "id": 4,
+        "nome": "Cliente Persistência",
+        "email": "persistencia@example.test",
+        "telefone": "89999997777",
+        "endereco": "Rua da Persistência, 2026",
+        "data_cadastro": "2026-10-09",
+        "status": "ATIVO",
+        "plano_id": 4
+      },
+      "faturas": {
+        "id": 3,
+        "cliente_id": 4,
+        "competencia": "2026-11",
+        "valor": 129.9,
+        "data_emissao": "2026-10-09",
+        "data_vencimento": "2026-11-20",
+        "status": "PENDENTE"
+      },
+      "chamados": {
+        "id": 3,
+        "cliente_id": 4,
+        "descricao": "Chamado mantido após reiniciar a API e o MySQL.",
+        "data_abertura": "2026-10-09",
+        "status": "ABERTO",
+        "prioridade": "ALTA"
+      }
+    },
+    "afterMySQL": {
+      "planos": {
+        "id": 4,
+        "nome": "Fibra Persistência MySQL",
+        "velocidade": "750 Mbps",
+        "preco": 129.9,
+        "descricao": "Registro validado após reiniciar a API e o banco."
+      },
+      "clientes": {
+        "id": 4,
+        "nome": "Cliente Persistência",
+        "email": "persistencia@example.test",
+        "telefone": "89999997777",
+        "endereco": "Rua da Persistência, 2026",
+        "data_cadastro": "2026-10-09",
+        "status": "ATIVO",
+        "plano_id": 4
+      },
+      "faturas": {
+        "id": 3,
+        "cliente_id": 4,
+        "competencia": "2026-11",
+        "valor": 129.9,
+        "data_emissao": "2026-10-09",
+        "data_vencimento": "2026-11-20",
+        "status": "PENDENTE"
+      },
+      "chamados": {
+        "id": 3,
+        "cliente_id": 4,
+        "descricao": "Chamado mantido após reiniciar a API e o MySQL.",
+        "data_abertura": "2026-10-09",
+        "status": "ABERTO",
+        "prioridade": "ALTA"
+      }
+    }
+  },
+  "testDatabasesRemoved": true
+}

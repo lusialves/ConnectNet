@@ -1,0 +1,204 @@
+TAP version 13
+# Subtest: ConnectNet API REST em modo mysql
+    # Subtest: saúde e arquivos da UI respondem e recebem cabeçalhos de proteção
+    ok 1 - saúde e arquivos da UI respondem e recebem cabeçalhos de proteção
+      ---
+      duration_ms: 187.523422
+      type: 'test'
+      ...
+    # Subtest: rotas de dados exigem uma sessão válida
+    ok 2 - rotas de dados exigem uma sessão válida
+      ---
+      duration_ms: 158.279301
+      type: 'test'
+      ...
+    # Subtest: login devolve perfil e cookie HttpOnly sem expor o hash
+    ok 3 - login devolve perfil e cookie HttpOnly sem expor o hash
+      ---
+      duration_ms: 251.390057
+      type: 'test'
+      ...
+    # Subtest: credencial incorreta falha e tentativas repetidas são limitadas
+    ok 4 - credencial incorreta falha e tentativas repetidas são limitadas
+      ---
+      duration_ms: 339.035439
+      type: 'test'
+      ...
+    # Subtest: escritas rejeitam CSRF ausente ou malformado e origem externa
+    ok 5 - escritas rejeitam CSRF ausente ou malformado e origem externa
+      ---
+      duration_ms: 162.746549
+      type: 'test'
+      ...
+    # Subtest: CRUD de planos funciona e plano vinculado não pode ser excluído
+    ok 6 - CRUD de planos funciona e plano vinculado não pode ser excluído
+      ---
+      duration_ms: 163.825195
+      type: 'test'
+      ...
+    # Subtest: cadastro de cliente cria conta e atualização mantém o acesso sincronizado
+    ok 7 - cadastro de cliente cria conta e atualização mantém o acesso sincronizado
+      ---
+      duration_ms: 319.483798
+      type: 'test'
+      ...
+    # Subtest: alteração apenas da senha é aceita e preserva os demais dados
+    ok 8 - alteração apenas da senha é aceita e preserva os demais dados
+      ---
+      duration_ms: 223.093365
+      type: 'test'
+      ...
+    # Subtest: duplicidade de conta desfaz o cadastro parcial do cliente
+    ok 9 - duplicidade de conta desfaz o cadastro parcial do cliente
+      ---
+      duration_ms: 203.745721
+      type: 'test'
+      ...
+    # Subtest: desativar cliente invalida o acesso e exclusão preserva registros vinculados
+    ok 10 - desativar cliente invalida o acesso e exclusão preserva registros vinculados
+      ---
+      duration_ms: 194.02739
+      type: 'test'
+      ...
+    # Subtest: valida IDs, campos, valores e datas de calendário
+    ok 11 - valida IDs, campos, valores e datas de calendário
+      ---
+      duration_ms: 191.987278
+      type: 'test'
+      ...
+    # Subtest: fatura pode ser criada, quitada e excluída sem duplicar a competência
+    ok 12 - fatura pode ser criada, quitada e excluída sem duplicar a competência
+      ---
+      duration_ms: 165.958965
+      type: 'test'
+      ...
+    # Subtest: geração mensal é idempotente e inclui apenas clientes ativos
+    ok 13 - geração mensal é idempotente e inclui apenas clientes ativos
+      ---
+      duration_ms: 150.127729
+      type: 'test'
+      ...
+    # Subtest: duas gerações concorrentes não criam cobranças duplicadas
+    ok 14 - duas gerações concorrentes não criam cobranças duplicadas
+      ---
+      duration_ms: 157.625352
+      type: 'test'
+      ...
+    # Subtest: cliente acessa somente seus dados e não administra o provedor
+    ok 15 - cliente acessa somente seus dados e não administra o provedor
+      ---
+      duration_ms: 164.104734
+      type: 'test'
+      ...
+    # Subtest: suporte atualiza chamados e não acessa o financeiro nem exclui registros
+    ok 16 - suporte atualiza chamados e não acessa o financeiro nem exclui registros
+      ---
+      duration_ms: 152.855158
+      type: 'test'
+      ...
+    # Subtest: CRUD de chamados aceita prioridades válidas e filtra os resultados
+    ok 17 - CRUD de chamados aceita prioridades válidas e filtra os resultados
+      ---
+      duration_ms: 163.329948
+      type: 'test'
+      ...
+    # Subtest: cliente abre chamado próprio e tentativa de usar outro ID é rejeitada
+    ok 18 - cliente abre chamado próprio e tentativa de usar outro ID é rejeitada
+      ---
+      duration_ms: 153.245171
+      type: 'test'
+      ...
+    # Subtest: logout encerra a sessão no servidor
+    ok 19 - logout encerra a sessão no servidor
+      ---
+      duration_ms: 145.446691
+      type: 'test'
+      ...
+    # Subtest: erros de JSON e endpoint são explícitos e não expõem detalhes internos
+    ok 20 - erros de JSON e endpoint são explícitos e não expõem detalhes internos
+      ---
+      duration_ms: 169.045792
+      type: 'test'
+      ...
+    # Subtest: senha com espaços é armazenada e verificada sem alteração
+    ok 21 - senha com espaços é armazenada e verificada sem alteração
+      ---
+      duration_ms: 248.353766
+      type: 'test'
+      ...
+    1..21
+ok 1 - ConnectNet API REST em modo mysql
+  ---
+  duration_ms: 4068.514594
+  type: 'suite'
+  ...
+# Subtest: Integridade e persistência MySQL
+    # Subtest: as cinco tabelas usam InnoDB e utf8mb4 em um servidor MySQL real
+    ok 1 - as cinco tabelas usam InnoDB e utf8mb4 em um servidor MySQL real
+      ---
+      duration_ms: 172.170287
+      type: 'test'
+      ...
+    # Subtest: chaves estrangeiras rejeitam referências inexistentes
+    ok 2 - chaves estrangeiras rejeitam referências inexistentes
+      ---
+      duration_ms: 134.58468
+      type: 'test'
+      ...
+    # Subtest: exclusões preservam histórico e removem a conta de um cliente sem vínculos
+    ok 3 - exclusões preservam histórico e removem a conta de um cliente sem vínculos
+      ---
+      duration_ms: 139.584438
+      type: 'test'
+      ...
+    # Subtest: índices únicos impedem e-mails e competências duplicados
+    ok 4 - índices únicos impedem e-mails e competências duplicados
+      ---
+      duration_ms: 164.136344
+      type: 'test'
+      ...
+    # Subtest: CHECK rejeita preços e valores inválidos e vínculo incompatível com o perfil
+    ok 5 - CHECK rejeita preços e valores inválidos e vínculo incompatível com o perfil
+      ---
+      duration_ms: 126.526902
+      type: 'test'
+      ...
+    # Subtest: DECIMAL e DATE são recuperados sem perda e texto parametrizado permanece literal
+    ok 6 - DECIMAL e DATE são recuperados sem perda e texto parametrizado permanece literal
+      ---
+      duration_ms: 120.750748
+      type: 'test'
+      ...
+    # Subtest: rollback desfaz gravações quando a transação falha
+    ok 7 - rollback desfaz gravações quando a transação falha
+      ---
+      duration_ms: 117.230827
+      type: 'test'
+      ...
+    # Subtest: executar o setup novamente preserva registros e senhas existentes
+    ok 8 - executar o setup novamente preserva registros e senhas existentes
+      ---
+      duration_ms: 132.128032
+      type: 'test'
+      ...
+    # Subtest: os dados permanecem após fechar e reabrir as conexões da aplicação
+    ok 9 - os dados permanecem após fechar e reabrir as conexões da aplicação
+      ---
+      duration_ms: 118.988294
+      type: 'test'
+      ...
+    1..9
+ok 2 - Integridade e persistência MySQL
+  ---
+  duration_ms: 1228.327536
+  type: 'suite'
+  ...
+1..2
+# tests 30
+# suites 2
+# pass 30
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4243.177085

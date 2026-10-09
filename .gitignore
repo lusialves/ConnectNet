@@ -1,1 +1,16 @@
+# Dependências e cobertura
 node_modules/
+coverage/
+
+# Configuração local e senhas
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+Desktop.ini
