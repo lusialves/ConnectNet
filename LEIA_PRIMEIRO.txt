@@ -1,0 +1,27 @@
+CONNECTNET - ENTREGA 3
+
+1. Extraia o ZIP em uma pasta separada do projeto antigo.
+2. Abra a pasta no VS Code.
+3. Confira se o Node.js 22 ou 24 está instalado.
+4. Duplique .env.example e renomeie a cópia para .env.
+   Mantenha a senha de exemplo entre aspas: SEED_PASSWORD="ConnectNet#2026".
+5. Abra o terminal na pasta que contém package.json.
+6. Execute npm ci e, em seguida, npm start.
+7. Abra http://127.0.0.1:3000/login.html.
+8. Para testar como administrador: admin@connectnet.local
+   Senha de demonstração: ConnectNet#2026
+
+O modo demo usa dados fictícios e reinicia os exemplos ao reiniciar o servidor.
+
+Relatório: docs/ConnectNet_Entrega3_Relatorio.pdf
+Relatório editável: docs/ConnectNet_Entrega3_Relatorio.docx
+16 cartões do Trello: docs/TAREFAS_TRELLO.md
+Configuração MySQL: README.md
+Integração ao repositório: docs/GIT_E_ENTREGA.md
+
+MySQL 8.0.46 validado em 09/10/2026: 30 testes de API/banco e 15 de UI
+aprovados. Registros preservados após reiniciar a aplicação e o MySQL.
+Detalhes e reprodução: docs/VALIDACAO_MYSQL.md.
+
+Para concluir a atividade: integrar/publicar o código no GitHub, cadastrar
+e revisar os 16 cartões no Trello e acrescentar as evidências remotas.

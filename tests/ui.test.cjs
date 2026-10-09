@@ -1,0 +1,77 @@
+'use strict';
+const fs = require('node:fs');
+const path = require('node:path');
+const assert = require('node:assert/strict');
+const { once } = require('node:events');
+const { chromium } = require('playwright');
+const { createApp } = require('../backend/src/app');
+const { createTestRepository } = require('./repository.cjs');
+const { config } = require('../backend/src/config');
+const out = path.resolve('docs/evidencias');
+const mode = process.env.CONNECTNET_TEST_MODE || 'demo';
+const screenshotNames = ['01-login','02-painel-admin','03-chamados-admin','04-painel-cliente-mobile'].map(name => `${name}-${mode}.png`);
+fs.mkdirSync(out, { recursive: true });
+(async () => {
+  const repo = await createTestRepository(mode);
+  const instance = createApp(repo, config({ mode }));
+  const server = instance.app.listen(0, '127.0.0.1'); await once(server, 'listening');
+  const url = `http://127.0.0.1:${server.address().port}`;
+  const browser = await chromium.launch({ executablePath: process.env.BROWSER_EXECUTABLE || undefined, headless: true, args: ['--no-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--disable-software-rasterizer'] });
+  const context = await browser.newContext({ viewport: { width: 1440, height: 1050 }, locale: 'pt-BR' });
+  const page = await context.newPage();
+  const errors = []; const checks = [];
+  page.on('pageerror', error => errors.push(error.message));
+  const check = (name) => { checks.push(name); console.log('PASS', name); };
+  const go = async name => { await page.getByRole('button', { name, exact: true }).click(); await page.getByRole('heading', { name, exact: true }).waitFor(); };
+  const save = async () => { await page.getByRole('button', { name: 'Salvar', exact: true }).click(); await page.locator('#record-dialog').waitFor({ state: 'hidden' }); };
+  const fill = async (name, value) => page.locator(`[name="${name}"]`).fill(value);
+  const selectAccount = async (role, email) => {
+    if (mode === 'demo') await page.getByRole('button', { name: role, exact: true }).click();
+    else { await page.getByLabel('E-mail', { exact: true }).fill(email); await page.getByLabel('Senha', { exact: true }).fill('ConnectNet#2026'); }
+  };
+  try {
+    await page.goto(url + '/index.html'); await page.waitForURL('**/login.html'); check('Painel sem sessão redireciona para o login');
+    await page.locator('#demo-accounts').waitFor({ state: mode === 'demo' ? 'visible' : 'hidden' });
+    await page.screenshot({ path: path.join(out, screenshotNames[0]), fullPage: true });
+    await page.getByLabel('E-mail', { exact: true }).fill('admin@connectnet.local');
+    await page.getByLabel('Senha', { exact: true }).fill('Errada#2026');
+    await page.getByRole('button', { name: 'Entrar no sistema' }).click();
+    await page.locator('#login-error').waitFor({ state: 'visible' });
+    assert.match(await page.locator('#login-error').textContent(), /inválidos/); check('Erro de login aparece no formulário');
+    await selectAccount('Administrador', 'admin@connectnet.local');
+    await page.getByRole('button', { name: 'Entrar no sistema' }).click();
+    await page.waitForURL('**/index.html'); await page.getByRole('heading', { name: 'Visão geral', exact: true }).waitFor();
+    await page.screenshot({ path: path.join(out, screenshotNames[1]), fullPage: true }); check('Login de administrador abre o painel com métricas');
+    await go('Planos'); await page.getByRole('button', { name: 'Novo plano', exact: true }).click();
+    await fill('nome', 'Fibra Teste'); await fill('velocidade', '900 Mbps'); await fill('preco', '179.90'); await fill('descricao', 'Plano criado na verificação da interface.'); await save();
+    await page.getByRole('cell', { name: 'Fibra Teste', exact: true }).waitFor(); check('Plano cadastrado pela interface e confirmado na lista');
+    await go('Clientes'); await page.getByRole('button', { name: 'Novo cliente', exact: true }).click();
+    await fill('nome', 'Cliente de Teste'); await fill('email', 'uiteste@example.test'); await fill('telefone', '89999998888'); await page.locator('[name="plano_id"]').selectOption('4'); await fill('senha', 'TesteUI#2026'); await fill('endereco', 'Rua dos Testes, 90'); await save();
+    await page.getByRole('cell', { name: 'Cliente de Teste', exact: true }).waitFor();
+    const customerRow = page.getByRole('row').filter({ hasText: 'uiteste@example.test' });
+    await customerRow.getByRole('button', { name: 'Editar', exact: true }).click(); await fill('telefone', '89999998899'); await save(); await page.getByRole('cell', { name: '89999998899', exact: true }).waitFor(); check('Cliente cadastrado e editado com vínculo ao plano');
+    await page.getByRole('searchbox').fill('uiteste'); await page.getByRole('button', { name: 'Buscar', exact: true }).click(); await page.locator('tbody tr').nth(1).waitFor({ state: 'detached' }); await page.getByRole('cell', { name: 'uiteste@example.test', exact: true }).waitFor(); assert.equal(await page.locator('tbody tr').count(), 1); check('Busca de clientes filtra a lista');
+    await go('Faturas'); await page.getByRole('button', { name: 'Nova fatura', exact: true }).click();
+    const now = new Date(); const competence = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1)).toISOString().slice(0, 7);
+    await page.locator('[name="cliente_id"]').selectOption('4'); await fill('competencia', competence); await fill('valor', '179.90'); await fill('data_vencimento', competence + '-20'); await save();
+    const invoiceRow = page.getByRole('row').filter({ hasText: 'Cliente de Teste' }); await invoiceRow.waitFor(); await invoiceRow.getByRole('button', { name: 'Marcar paga' }).click(); await invoiceRow.getByText('Paga', { exact: true }).waitFor(); check('Fatura criada e pagamento registrado pela interface');
+    await page.getByRole('button', { name: 'Gerar mensalidade' }).click(); await fill('competencia', competence); await fill('data_vencimento', competence + '-20'); await save(); await page.getByRole('cell', { name: 'Ana Oliveira', exact: true }).first().waitFor(); check('Geração mensal atende os clientes ativos');
+    await go('Chamados'); await page.getByRole('button', { name: 'Novo chamado', exact: true }).click(); await page.locator('[name="cliente_id"]').selectOption('4'); await page.locator('[name="prioridade"]').selectOption('ALTA'); await fill('descricao', 'O roteador ficou sem sinal durante o teste.'); await save();
+    const ticketRow = page.getByRole('row').filter({ hasText: 'O roteador ficou sem sinal durante o teste.' }); await ticketRow.getByRole('button', { name: 'Editar', exact: true }).click(); await page.locator('[name="status"]').selectOption('RESOLVIDO'); await save(); await ticketRow.getByText('Resolvido', { exact: true }).waitFor();
+    await page.screenshot({ path: path.join(out, screenshotNames[2]), fullPage: true }); check('Chamado criado com prioridade alta e atualizado para resolvido');
+    await ticketRow.getByRole('button', { name: 'Excluir', exact: true }).click(); await page.locator('#confirm-dialog').waitFor({ state: 'visible' }); await page.locator('#confirm-delete').click(); await page.locator('#confirm-dialog').waitFor({ state: 'hidden' }); await ticketRow.waitFor({ state: 'detached' }); check('Exclusão solicita confirmação e remove o chamado');
+    // Conteúdo vindo da API deve continuar sendo texto, sem executar HTML.
+    await go('Planos'); const planRow = page.getByRole('row').filter({ has: page.getByRole('cell', { name: 'Fibra Teste', exact: true }) }); await planRow.getByRole('button', { name: 'Editar', exact: true }).click(); await fill('descricao', '<img src=x onerror="window.__xss=true">'); await save();
+    await page.getByRole('cell', { name: '<img src=x onerror="window.__xss=true">', exact: true }).waitFor(); assert.equal(await page.evaluate(() => window.__xss), undefined); assert.equal(await page.locator('td img').count(), 0); check('Texto HTML recebido da API é exibido sem executar código');
+    await page.getByRole('button', { name: 'Sair', exact: true }).click(); await page.waitForURL('**/login.html');
+    await selectAccount('Cliente', 'cliente@connectnet.local'); await page.getByRole('button', { name: 'Entrar no sistema' }).click(); await page.waitForURL('**/index.html'); await page.getByRole('heading', { name: 'Visão geral', exact: true }).waitFor();
+    assert.equal(await page.locator('[data-module="clientes"]').count(), 0); assert.equal(await page.locator('[data-module="planos"]').count(), 0);
+    await go('Faturas'); assert.equal(await page.getByRole('cell', { name: 'Bruno Santos', exact: true }).count(), 0); check('Cliente possui menu limitado e consulta apenas as suas faturas');
+    await page.setViewportSize({ width: 390, height: 844 }); await page.getByRole('button', { name: 'Visão geral', exact: true }).click(); await page.getByRole('heading', { name: 'Visão geral', exact: true }).waitFor();
+    const sizes = await page.evaluate(() => ({ width: innerWidth, scroll: document.documentElement.scrollWidth })); assert.ok(sizes.scroll <= sizes.width); await page.screenshot({ path: path.join(out, screenshotNames[3]), fullPage: true }); check('Painel móvel cabe em 390 pixels sem rolagem horizontal da página');
+    await page.getByRole('button', { name: 'Sair', exact: true }).click(); await page.waitForURL('**/login.html'); await page.setViewportSize({ width: 1440, height: 1050 }); await selectAccount('Suporte', 'suporte@connectnet.local'); await page.getByRole('button', { name: 'Entrar no sistema' }).click(); await page.waitForURL('**/index.html'); await page.getByRole('heading', { name: 'Visão geral', exact: true }).waitFor();
+    assert.equal(await page.locator('[data-module="faturas"]').count(), 0); await go('Chamados'); assert.ok(await page.getByRole('button', { name: 'Editar', exact: true }).count() > 0); assert.equal(await page.getByRole('button', { name: 'Excluir', exact: true }).count(), 0); check('Suporte pode editar chamados e não recebe ações financeiras ou de exclusão');
+    assert.deepEqual(errors, []); check('Nenhum erro de JavaScript durante os fluxos verificados');
+    fs.writeFileSync(path.resolve(mode === 'mysql' ? 'docs/validacao-ui-mysql.json' : 'docs/validacao-ui.json'), JSON.stringify({ date: new Date().toISOString().slice(0, 10), mode, browser: await browser.version(), passed: checks.length, failed: 0, checks, screenshots: screenshotNames }, null, 2));
+  } finally { await browser.close(); instance.close(); await new Promise(resolve => server.close(resolve)); await repo.close(); }
+})().catch(error => { console.error(error); process.exitCode = 1; });

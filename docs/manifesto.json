@@ -1,0 +1,257 @@
+[
+  {
+    "path": ".env.example",
+    "bytes": 375,
+    "sha256": "9a0f33bac15ca4ae768c1a9510734be8423e77a2f08162ca7568a91d5d4e19dd"
+  },
+  {
+    "path": ".gitignore",
+    "bytes": 45,
+    "sha256": "ccdf1caa888db751bfaff1023cffdb198ae9667e1ba5cf9306e0697a6495e5d5"
+  },
+  {
+    "path": "LEIA_PRIMEIRO.txt",
+    "bytes": 1207,
+    "sha256": "5bcbcf43bda6ec834d31edecc09826c9f053f0260ba23f020bb39fbfa6723bba"
+  },
+  {
+    "path": "README.md",
+    "bytes": 5851,
+    "sha256": "69bcedc568cb6e74d95abd8145801ccd60baa392f628c0484570e1f11e6c7d4b"
+  },
+  {
+    "path": "backend/scripts/setup-db.js",
+    "bytes": 2429,
+    "sha256": "7f27ff6a4c0352a9d23c0f5d296121df75748f88fd42c44cc675fecad85fc523"
+  },
+  {
+    "path": "backend/server.js",
+    "bytes": 1181,
+    "sha256": "5754f4b221b192f9c4174028686b3ef009bd937c4317b044a1be5075febf4074"
+  },
+  {
+    "path": "backend/src/app.js",
+    "bytes": 6228,
+    "sha256": "ab4aae0fbf272a058329a81f1e0a6ecbd9b71d9a928f4a311fb843836907b6c0"
+  },
+  {
+    "path": "backend/src/auth.js",
+    "bytes": 4109,
+    "sha256": "ba401636dce2f3af5f52e1bcf211d69c4ba9e713932b2b7b6b5ba905aedb9212"
+  },
+  {
+    "path": "backend/src/config.js",
+    "bytes": 1140,
+    "sha256": "d4ad23cf13874df1e34d933cdc32f63d027d781bcb2c3855c668dee18889fcd5"
+  },
+  {
+    "path": "backend/src/demo-repository.js",
+    "bytes": 4623,
+    "sha256": "15121e017ffe773c9f463c769d6bfb9ba2a5bd5167450cb6b40ae24e87a059fd"
+  },
+  {
+    "path": "backend/src/mysql-repository.js",
+    "bytes": 2761,
+    "sha256": "ab60090731ec0fde77bd79286ba71a9f3ba4dd5195b473aa3dbfb83acbd20602"
+  },
+  {
+    "path": "backend/src/passwords.js",
+    "bytes": 795,
+    "sha256": "27387a1b34ad24d6c95decd59e0732f99afc5f9d18d69417cab2b8b01f4fba37"
+  },
+  {
+    "path": "backend/src/services.js",
+    "bytes": 10947,
+    "sha256": "c09bd30a81dae19a443ef711356eec8aabb70dadbf64d63bee8e5d8cdd734d80"
+  },
+  {
+    "path": "backend/src/validation.js",
+    "bytes": 2591,
+    "sha256": "b1802fbf0b7a36da8ee4264b68f149a34fee3edac245eeab3c6e80bdef4d30e0"
+  },
+  {
+    "path": "database/schema.sql",
+    "bytes": 2698,
+    "sha256": "1f89218cefc508908a085c0204abfdbbc7162be1836f559659232a55c3713c27"
+  },
+  {
+    "path": "docs/API.md",
+    "bytes": 4180,
+    "sha256": "fd4aec56ce359a0e831e5f4122af7f91583e3f987634c45ba0a9deba247942a8"
+  },
+  {
+    "path": "docs/ConnectNet_Entrega3_Relatorio.docx",
+    "bytes": 150295,
+    "sha256": "1d5936350d44721f6f38021df3195577ee8eaa6208b9f80fab4e8083272f5a8f"
+  },
+  {
+    "path": "docs/ConnectNet_Entrega3_Relatorio.pdf",
+    "bytes": 382061,
+    "sha256": "17c9595bcd69c5015ff533a59f9fd84eb249dda7684b539be7b33e740f9ef6e9"
+  },
+  {
+    "path": "docs/GIT_E_ENTREGA.md",
+    "bytes": 5528,
+    "sha256": "0db2e904b91f632d4770c068845a638b7e245a7749820c374747c835249c7eef"
+  },
+  {
+    "path": "docs/TAREFAS_TRELLO.md",
+    "bytes": 13030,
+    "sha256": "870603c19b43de48d892442983ff5666085f07c3e854f6e6a8e2d53ba511464b"
+  },
+  {
+    "path": "docs/VALIDACAO.md",
+    "bytes": 4158,
+    "sha256": "de156ab53f9aca5b14e9cb1a6854ee0cfccbcb22def089fe4536faea6b0a3aec"
+  },
+  {
+    "path": "docs/VALIDACAO_MYSQL.md",
+    "bytes": 5634,
+    "sha256": "5315c74294a29cfd877c7520bbf50c4a5eafb3180f2cd4a2ca65a24deee25751"
+  },
+  {
+    "path": "docs/evidencias/01-login-demo.png",
+    "bytes": 203709,
+    "sha256": "1fc2e49798665b9d277054aedfcb045f0a17f106765a2068babb92402bb7082d"
+  },
+  {
+    "path": "docs/evidencias/01-login-mysql.png",
+    "bytes": 188177,
+    "sha256": "ea8a2cb9e91ee4923081062b5d7e2d5d09bb3b0e7c0f8ffedb77982a2b4461f3"
+  },
+  {
+    "path": "docs/evidencias/02-painel-admin-demo.png",
+    "bytes": 117937,
+    "sha256": "37e336395ef58175dd5d2e584a3f559a10bc4f2e2d27463b6033c0dd4bbcc6f1"
+  },
+  {
+    "path": "docs/evidencias/02-painel-admin-mysql.png",
+    "bytes": 112214,
+    "sha256": "78f7dbe26a280cc20d7ba60e179d3c591dfa454b6b9415175a058a3afc0b909a"
+  },
+  {
+    "path": "docs/evidencias/03-chamados-admin-demo.png",
+    "bytes": 97162,
+    "sha256": "a399ae4f5ba63044bc8995097a36b17eb3423564204e46e2e1bdfd93b2ff593f"
+  },
+  {
+    "path": "docs/evidencias/03-chamados-admin-mysql.png",
+    "bytes": 92815,
+    "sha256": "b89d9f4f8be9c950523a93ad9143283d05d4a6ed78d43a83369a69474707ef25"
+  },
+  {
+    "path": "docs/evidencias/04-painel-cliente-mobile-demo.png",
+    "bytes": 81781,
+    "sha256": "3fccee601db840e7ee3e7c52492301e4ccf76adf38ea84e58616582d5d5a9d8f"
+  },
+  {
+    "path": "docs/evidencias/04-painel-cliente-mobile-mysql.png",
+    "bytes": 76479,
+    "sha256": "4a402157c04fefa7df639ac39bc921879a6e855a70438cf62726ff7dd372bd83"
+  },
+  {
+    "path": "docs/evidencias/mysql-api-integridade.tap",
+    "bytes": 7187,
+    "sha256": "b587b416097e345f116cccdd0e71859fb87b6f19efc0d0d8fcf808eb74852427"
+  },
+  {
+    "path": "docs/openapi.json",
+    "bytes": 66373,
+    "sha256": "89fad49672e2ae99710de2947de3f0f3622cc61cabe19b92f101a5d44fc748ac"
+  },
+  {
+    "path": "docs/tarefas.json",
+    "bytes": 12483,
+    "sha256": "600fb2f18172a80c4dfc2d9689ec0ea1c90c7ea871a1234f7e69d84f3e33b610"
+  },
+  {
+    "path": "docs/validacao-api.json",
+    "bytes": 289,
+    "sha256": "c7ceff7e82a6a74aaec0574b50b341660ac72304df0a4fdd0e2bd2352962eef6"
+  },
+  {
+    "path": "docs/validacao-env.json",
+    "bytes": 278,
+    "sha256": "ebdfdb7706e5bc7cfcd78875d9ef07f19dad1c7e9d5fc83fc44279e11ccf6694"
+  },
+  {
+    "path": "docs/validacao-mysql.json",
+    "bytes": 5901,
+    "sha256": "57cf62ba94671ed031f1e71c5bec143030b5ee17b62d2a2cc4f162f12a57e07c"
+  },
+  {
+    "path": "docs/validacao-ui-mysql.json",
+    "bytes": 1191,
+    "sha256": "2dae55565df613f8805ca3709939ace2b88bd8ae36d682fe1d9896a063074ace"
+  },
+  {
+    "path": "docs/validacao-ui.json",
+    "bytes": 1186,
+    "sha256": "90a0d54b77ba620dc747bdd962fc23449b99500462d99c020b243138a10d889f"
+  },
+  {
+    "path": "frontend/css/styles.css",
+    "bytes": 11407,
+    "sha256": "bc1a54ea4627125eee0e912e9a33708b00a717a6f5ffb1c0b6caac4076a0e20c"
+  },
+  {
+    "path": "frontend/index.html",
+    "bytes": 2509,
+    "sha256": "cb6a119e4a728e22df96441730ccf3f48964ea7c5167b5915f7ebf70fb08242f"
+  },
+  {
+    "path": "frontend/js/api.js",
+    "bytes": 980,
+    "sha256": "da8a1d6fa4967d28fa9a97fe9441a47c9dba0fa2bc979b29f9598109f201d56d"
+  },
+  {
+    "path": "frontend/js/app.js",
+    "bytes": 20427,
+    "sha256": "f5b97bb7a2843d35f8eb1df8f6ee609fe3eed968dc76852d78c38f44355a49cf"
+  },
+  {
+    "path": "frontend/js/login.js",
+    "bytes": 1106,
+    "sha256": "a2c234b6b232d2fbf5d4e7dd18fa4c221d253d8c9a68d4646b2360f603add41a"
+  },
+  {
+    "path": "frontend/login.html",
+    "bytes": 2239,
+    "sha256": "052dcb6dfe5602ea551da68d19fc232dec70c4b2f98baa9b59a51173c5b7adc5"
+  },
+  {
+    "path": "package-lock.json",
+    "bytes": 36237,
+    "sha256": "83ca078a7893c1fcfefeba08c2aca70a52bc3d985649ddab8a7e2687a4c33acf"
+  },
+  {
+    "path": "package.json",
+    "bytes": 647,
+    "sha256": "9a31638037da5b601fa82c37b2e962f7a6c692d9ad03e2c51d97ef6d49e9c542"
+  },
+  {
+    "path": "tests/api.test.cjs",
+    "bytes": 13856,
+    "sha256": "a80b45dd94df95058f5720da89f5ba043653873cd70506d146c8b29b5d248595"
+  },
+  {
+    "path": "tests/mysql.test.cjs",
+    "bytes": 5707,
+    "sha256": "b95c494e43f16a2cedfcce0c77b2a65bdfa26dd3fd1628bfcf5647b69a0d62c8"
+  },
+  {
+    "path": "tests/repository.cjs",
+    "bytes": 1684,
+    "sha256": "bb6aadf325b2a01f3a3e30d7cf82462006bf6c62df7b5d3f6b6f797e54fdff24"
+  },
+  {
+    "path": "tests/run-mysql.cjs",
+    "bytes": 446,
+    "sha256": "a5ea4e2a4b45c243754d5bff29103157ade270e77121cd7239b21b3a6b463a92"
+  },
+  {
+    "path": "tests/ui.test.cjs",
+    "bytes": 10622,
+    "sha256": "d2bd24230ae4afe38d31ca3baa19a091f90dae764ce83a8333f2460bf86a1bae"
+  }
+]

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel | ConnectNet</title><link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/api.js" defer></script><script src="/js/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Pular para o conteúdo</a>
+  <div class="app-layout" id="app" hidden>
+    <aside class="sidebar">
+      <a class="brand" href="/index.html"><span class="brand-mark" aria-hidden="true">C</span> ConnectNet</a>
+      <p class="sidebar-caption">GESTÃO DO PROVEDOR</p><nav id="navigation" aria-label="Menu principal"></nav>
+      <div class="sidebar-bottom"><p>Entrega 3</p><span>Clientes e serviços conectados</span></div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar"><span class="topbar-label">Painel de operações</span><div class="account"><div><strong id="user-name"></strong><span id="user-role"></span></div><button class="button subtle" id="logout" type="button">Sair</button></div></header>
+      <p id="demo-banner" class="demo-banner" hidden>Modo de demonstração · Dados fictícios em memória. Reiniciar o servidor restaura os exemplos.</p>
+      <main id="content" tabindex="-1" aria-live="polite"></main>
+      <footer class="app-footer">ConnectNet · Sistema de gerenciamento de provedor de internet</footer>
+    </div>
+  </div>
+  <p id="boot-status" class="boot-status" role="status">Carregando sua sessão...</p>
+  <div id="notification" class="notification" role="status" hidden></div>
+  <dialog id="record-dialog" aria-labelledby="dialog-title"><form id="record-form"><div class="dialog-heading"><h2 id="dialog-title"></h2><button type="button" class="close-button" id="close-dialog" aria-label="Fechar formulário">×</button></div><div id="dialog-fields" class="form-grid"></div><p id="form-error" class="form-error" role="alert" hidden></p><div class="dialog-actions"><button type="button" class="button subtle" id="cancel-dialog">Cancelar</button><button type="submit" class="button primary" id="save-record">Salvar</button></div></form></dialog>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title"><h2 id="confirm-title">Confirmar exclusão</h2><p id="confirm-message"></p><div class="dialog-actions"><button type="button" class="button subtle" id="cancel-delete">Cancelar</button><button type="button" class="button danger" id="confirm-delete">Excluir</button></div></dialog>
+</body>
+</html>

@@ -1,0 +1,318 @@
+[
+  {
+    "id": "API01",
+    "area": "API",
+    "titulo": "Configurar o projeto e o servidor",
+    "descricao": "Definir Node.js, Express e variáveis de ambiente; organizar o servidor e expor a rota de saúde.",
+    "criterio_de_aceite": "Servidor inicia na porta configurada e GET /api/v1/saude retorna 200.",
+    "arquivos": [
+      "backend/server.js",
+      "backend/src/config.js",
+      "package.json"
+    ],
+    "validacao_local": "Rota de saúde aprovada nos modos demo e mysql.",
+    "dependencias": [],
+    "lista_inicial": "Em revisão",
+    "responsavel": "A definir pelo grupo",
+    "evidencia_remota": "Adicionar link do commit e captura do cartão após publicação"
+  },
+  {
+    "id": "API02",
+    "area": "API",
+    "titulo": "Preparar a persistência MySQL",
+    "descricao": "Criar as cinco tabelas, os vínculos e o adaptador mysql2; fornecer setup sem apagar os dados existentes.",
+    "criterio_de_aceite": "Executar npm run db:setup em banco novo, iniciar DB_MODE=mysql e confirmar persistência após reinício.",
+    "arquivos": [
+      "database/schema.sql",
+      "backend/src/mysql-repository.js",
+      "backend/scripts/setup-db.js",
+      "tests/mysql.test.cjs",
+      "docs/VALIDACAO_MYSQL.md",
+      "docs/validacao-mysql.json"
+    ],
+    "validacao_local": "MySQL 8.0.46: cinco tabelas criadas, nove testes SQL aprovados e registros preservados após reiniciar Node e mysqld em 09/10/2026.",
+    "dependencias": [
+      "API01"
+    ],
+    "lista_inicial": "Em revisão",
+    "responsavel": "A definir pelo grupo",
+    "evidencia_remota": "Adicionar link do commit e captura do cartão após publicação"
+  },
+  {
+    "id": "API03",
+    "area": "API",
+    "titulo": "Implementar autenticação e perfis",
+    "descricao": "Armazenar hashes scrypt; manter sessões no servidor e separar administrador, suporte e cliente.",
+    "criterio_de_aceite": "Login válido cria cookie HttpOnly; credenciais incorretas e operações sem permissão são recusadas.",
+    "arquivos": [
+      "backend/src/auth.js",
+      "backend/src/passwords.js",
+      "backend/src/app.js"
+    ],
+    "validacao_local": "Login, perfis, logout e hash verificados na API em demo e MySQL.",
+    "dependencias": [
+      "API02"
+    ],
+    "lista_inicial": "Em revisão",
+    "responsavel": "A definir pelo grupo",
+    "evidencia_remota": "Adicionar link do commit e captura do cartão após publicação"
+  },
+  {
+    "id": "API04",
+    "area": "API",
+    "titulo": "Implementar o cadastro de clientes",
+    "descricao": "Cadastrar, consultar, editar e remover clientes; vincular plano e conta de acesso; permitir desativação.",
+    "criterio_de_aceite": "Cadastro cria cliente e usuário juntos; duplicidade desfaz a operação e desativação impede novo acesso.",
+    "arquivos": [
+      "backend/src/services.js",
+      "backend/src/app.js"
+    ],
+    "validacao_local": "CRUD, sincronização da conta e rollback verificados em demo e MySQL.",
+    "dependencias": [
+      "API02",
+      "API03",
+      "API05"
+    ],
+    "lista_inicial": "Em revisão",
+    "responsavel": "A definir pelo grupo",
+    "evidencia_remota": "Adicionar link do commit e captura do cartão após publicação"
+  },
+  {
+    "id": "API05",
+    "area": "API",
+    "titulo": "Implementar a gestão de planos",
+    "descricao": "Cadastrar, listar, editar e excluir planos; validar velocidade e mensalidade.",
+    "criterio_de_aceite": "Preço positivo é obrigatório; plano com clientes vinculados não pode ser excluído.",
+    "arquivos": [
+      "backend/src/services.js",
+      "backend/src/app.js"
+    ],
+    "validacao_local": "CRUD e restrição de vínculo verificados em demo e MySQL.",
+    "dependencias": [
+      "API02",
+      "API03"
+    ],
+    "lista_inicial": "Em revisão",
+    "responsavel": "A definir pelo grupo",
+    "evidencia_remota": "Adicionar link do commit e captura do cartão após publicação"
+  },
+  {
+    "id": "API06",
+    "area": "API",
+    "titulo": "Implementar o faturamento mensal",
+    "descricao": "Emitir, consultar, atualizar e remover faturas; gerar mensalidades sem duplicar cliente e competência.",
+    "criterio_de_aceite": "Geração considera apenas clientes ativos; repetição não duplica cobrança; pagamento altera os totais.",
+    "arquivos": [
+      "backend/src/services.js",
+      "backend/src/app.js",
+      "database/schema.sql"
+    ],
+    "validacao_local": "CRUD, valores e geração idempotente verificados em demo e MySQL.",
+    "dependencias": [
+      "API04",
+      "API05"
+    ],
+    "lista_inicial": "Em revisão",
+    "responsavel": "A definir pelo grupo",
+    "evidencia_remota": "Adicionar link do commit e captura do cartão após publicação"
+  },
+  {
+    "id": "API07",
+    "area": "API",
+    "titulo": "Implementar os chamados de suporte",
+    "descricao": "Abrir, listar, editar e remover chamados com prioridade e situação de atendimento.",
+    "criterio_de_aceite": "Cliente acessa somente seus chamados; suporte atualiza situação e prioridade sem excluir registros.",
+    "arquivos": [
+      "backend/src/services.js",
+      "backend/src/app.js"
+    ],
+    "validacao_local": "CRUD, prioridade, filtros e autorização verificados em demo e MySQL.",
+    "dependencias": [
+      "API03",
+      "API04"
+    ],
+    "lista_inicial": "Em revisão",
+    "responsavel": "A definir pelo grupo",
+    "evidencia_remota": "Adicionar link do commit e captura do cartão após publicação"
+  },
+  {
+    "id": "API08",
+    "area": "API",
+    "titulo": "Validar dados e documentar a API",
+    "descricao": "Padronizar erros, validar dados e incluir proteção de escritas, testes e contrato OpenAPI.",
+    "criterio_de_aceite": "npm test passa; dados inválidos retornam 400, falta de sessão 401, permissão 403, ausência 404 e conflito 409.",
+    "arquivos": [
+      "backend/src/validation.js",
+      "backend/src/app.js",
+      "tests/api.test.cjs",
+      "docs/openapi.json",
+      "tests/mysql.test.cjs",
+      "tests/repository.cjs",
+      "tests/run-mysql.cjs"
+    ],
+    "validacao_local": "21 testes HTTP em demo e 30 testes de API/banco em MySQL aprovados.",
+    "dependencias": [
+      "API03",
+      "API04",
+      "API05",
+      "API06",
+      "API07"
+    ],
+    "lista_inicial": "Em revisão",
+    "responsavel": "A definir pelo grupo",
+    "evidencia_remota": "Adicionar link do commit e captura do cartão após publicação"
+  },
+  {
+    "id": "UI01",
+    "area": "UI",
+    "titulo": "Construir a tela de login",
+    "descricao": "Criar formulário de acesso e feedback de autenticação; disponibilizar contas apenas no modo demo.",
+    "criterio_de_aceite": "Campos possuem rótulos; falha de login aparece na tela; acesso válido abre o painel.",
+    "arquivos": [
+      "frontend/login.html",
+      "frontend/js/login.js"
+    ],
+    "validacao_local": "Login, erro de credenciais e redirecionamento verificados no navegador Nos modos demo e MySQL.",
+    "dependencias": [
+      "API03"
+    ],
+    "lista_inicial": "Em revisão",
+    "responsavel": "A definir pelo grupo",
+    "evidencia_remota": "Adicionar link do commit e captura do cartão após publicação"
+  },
+  {
+    "id": "UI02",
+    "area": "UI",
+    "titulo": "Construir o painel por perfil",
+    "descricao": "Exibir métricas de clientes, recebimentos e chamados, com informações próprias para cada perfil.",
+    "criterio_de_aceite": "Administrador vê a gestão geral; cliente vê seu plano e registros; suporte vê a central de chamados.",
+    "arquivos": [
+      "frontend/index.html",
+      "frontend/js/app.js"
+    ],
+    "validacao_local": "Painel e menus por perfil verificados no navegador Nos modos demo e MySQL.",
+    "dependencias": [
+      "UI01",
+      "API06",
+      "API07"
+    ],
+    "lista_inicial": "Em revisão",
+    "responsavel": "A definir pelo grupo",
+    "evidencia_remota": "Adicionar link do commit e captura do cartão após publicação"
+  },
+  {
+    "id": "UI03",
+    "area": "UI",
+    "titulo": "Construir a gestão de clientes",
+    "descricao": "Criar lista, busca e formulários de cadastro e edição, com seleção de plano e desativação.",
+    "criterio_de_aceite": "Cadastro e edição aparecem na lista; busca filtra os registros; senha é opcional durante edição.",
+    "arquivos": [
+      "frontend/js/app.js"
+    ],
+    "validacao_local": "Cadastro, edição e busca de cliente verificados no navegador Nos modos demo e MySQL.",
+    "dependencias": [
+      "API04",
+      "UI02"
+    ],
+    "lista_inicial": "Em revisão",
+    "responsavel": "A definir pelo grupo",
+    "evidencia_remota": "Adicionar link do commit e captura do cartão após publicação"
+  },
+  {
+    "id": "UI04",
+    "area": "UI",
+    "titulo": "Construir a gestão de planos",
+    "descricao": "Criar tabela e formulários para nome, velocidade, preço e descrição do plano.",
+    "criterio_de_aceite": "Plano salvo aparece na lista; edição altera a mensalidade; exclusão apresenta a resposta da API.",
+    "arquivos": [
+      "frontend/js/app.js"
+    ],
+    "validacao_local": "Cadastro e edição de plano verificados no navegador Nos modos demo e MySQL.",
+    "dependencias": [
+      "API05",
+      "UI02"
+    ],
+    "lista_inicial": "Em revisão",
+    "responsavel": "A definir pelo grupo",
+    "evidencia_remota": "Adicionar link do commit e captura do cartão após publicação"
+  },
+  {
+    "id": "UI05",
+    "area": "UI",
+    "titulo": "Construir a gestão de faturas",
+    "descricao": "Criar consultas e emissão individual ou mensal; formatar reais e registrar pagamentos.",
+    "criterio_de_aceite": "Nova fatura aparece na lista; marcar paga atualiza situação; cliente recebe apenas suas cobranças.",
+    "arquivos": [
+      "frontend/js/app.js"
+    ],
+    "validacao_local": "Emissão, pagamento, geração e consulta por cliente verificados no navegador Nos modos demo e MySQL.",
+    "dependencias": [
+      "API06",
+      "UI02"
+    ],
+    "lista_inicial": "Em revisão",
+    "responsavel": "A definir pelo grupo",
+    "evidencia_remota": "Adicionar link do commit e captura do cartão após publicação"
+  },
+  {
+    "id": "UI06",
+    "area": "UI",
+    "titulo": "Construir a central de chamados",
+    "descricao": "Criar formulário de abertura, listagem, filtros e atualização do atendimento.",
+    "criterio_de_aceite": "Chamado aberto aparece na lista; suporte ou administrador altera status; cliente acompanha sua solicitação.",
+    "arquivos": [
+      "frontend/js/app.js"
+    ],
+    "validacao_local": "Abertura, resolução e exclusão com confirmação verificadas no navegador Nos modos demo e MySQL.",
+    "dependencias": [
+      "API07",
+      "UI02"
+    ],
+    "lista_inicial": "Em revisão",
+    "responsavel": "A definir pelo grupo",
+    "evidencia_remota": "Adicionar link do commit e captura do cartão após publicação"
+  },
+  {
+    "id": "UI07",
+    "area": "UI",
+    "titulo": "Integrar a interface à API e à sessão",
+    "descricao": "Centralizar fetch, incluir token CSRF em escritas, conferir sessão e permitir logout.",
+    "criterio_de_aceite": "Painel sem sessão redireciona; logout encerra acesso; operações usam respostas reais da API.",
+    "arquivos": [
+      "frontend/js/api.js",
+      "frontend/js/app.js"
+    ],
+    "validacao_local": "Integração HTTP, sessão e logout verificados no navegador Nos modos demo e MySQL.",
+    "dependencias": [
+      "API03",
+      "API08",
+      "UI01"
+    ],
+    "lista_inicial": "Em revisão",
+    "responsavel": "A definir pelo grupo",
+    "evidencia_remota": "Adicionar link do commit e captura do cartão após publicação"
+  },
+  {
+    "id": "UI08",
+    "area": "UI",
+    "titulo": "Conferir responsividade e mensagens",
+    "descricao": "Adaptar menus, formulários e tabelas; incluir rótulos, foco, mensagens de erro e confirmação.",
+    "criterio_de_aceite": "Tela de 390 px não causa rolagem horizontal da página; tabelas mantêm rolagem própria; HTML de usuários permanece texto.",
+    "arquivos": [
+      "frontend/css/styles.css",
+      "frontend/js/app.js",
+      "tests/ui.test.cjs"
+    ],
+    "validacao_local": "Interface móvel, conteúdo HTML e ausência de erro JavaScript verificados Nos modos demo e MySQL.",
+    "dependencias": [
+      "UI03",
+      "UI04",
+      "UI05",
+      "UI06",
+      "UI07"
+    ],
+    "lista_inicial": "Em revisão",
+    "responsavel": "A definir pelo grupo",
+    "evidencia_remota": "Adicionar link do commit e captura do cartão após publicação"
+  }
+]

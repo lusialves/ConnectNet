@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-09",
+  "mode": "demo",
+  "node": "v24.19.0",
+  "express": "5.2.1",
+  "mysql2": "3.24.5",
+  "tests": 21,
+  "passed": 21,
+  "failed": 0,
+  "command": "npm test",
+  "limitation": "Este registro corresponde ao modo demo. Os testes MySQL estão em validacao-mysql.json."
+}

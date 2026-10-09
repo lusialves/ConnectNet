@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-09",
+  "mode": "demo",
+  "browser": "153.0.8010.0",
+  "passed": 15,
+  "failed": 0,
+  "checks": [
+    "Painel sem sessão redireciona para o login",
+    "Erro de login aparece no formulário",
+    "Login de administrador abre o painel com métricas",
+    "Plano cadastrado pela interface e confirmado na lista",
+    "Cliente cadastrado e editado com vínculo ao plano",
+    "Busca de clientes filtra a lista",
+    "Fatura criada e pagamento registrado pela interface",
+    "Geração mensal atende os clientes ativos",
+    "Chamado criado com prioridade alta e atualizado para resolvido",
+    "Exclusão solicita confirmação e remove o chamado",
+    "Texto HTML recebido da API é exibido sem executar código",
+    "Cliente possui menu limitado e consulta apenas as suas faturas",
+    "Painel móvel cabe em 390 pixels sem rolagem horizontal da página",
+    "Suporte pode editar chamados e não recebe ações financeiras ou de exclusão",
+    "Nenhum erro de JavaScript durante os fluxos verificados"
+  ],
+  "screenshots": [
+    "01-login-demo.png",
+    "02-painel-admin-demo.png",
+    "03-chamados-admin-demo.png",
+    "04-painel-cliente-mobile-demo.png"
+  ]
+}
