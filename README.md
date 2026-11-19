@@ -1,4 +1,4 @@
-# ConnectNet - Sistema de Gerenciamento de Provedor de Internet
+# ConnectNet - Sistema de Gerenciamento de Provedor de Internet | Entrega 04
 
 O **ConnectNet** é uma plataforma web de gerenciamento desenvolvida para atender às demandas operacionais de Provedores de Serviços de Internet (ISPs) de pequeno e médio porte. O projeto visa substituir processos manuais e planilhas descentralizadas por um sistema integrado para administrar clientes, planos, faturas e chamados de suporte.
 ---
@@ -8,7 +8,7 @@ O **ConnectNet** é uma plataforma web de gerenciamento desenvolvida para atende
 * **Painel Administrativo Dinâmico (SPA):** Interface de página única com navegação entre módulos, indicadores e menus conforme o perfil autenticado. A sessão é controlada pelo servidor e identificada por um cookie `HttpOnly`.
 * **Gestão de Clientes:** Cadastro, edição, listagem, busca e exclusão de assinantes, com vínculo a um plano e criação da conta de acesso do cliente. A exclusão respeita os vínculos com faturas e chamados para preservar o histórico.
 * **Gestão de Planos:** Cadastro e administração dos pacotes de internet, incluindo nome, velocidade e valor mensal.
-* **Gestão de Faturas:** Emissão individual e geração mensal por competência, acompanhamento de vencimento e situação do pagamento, valores em Reais (R$) e controle de duplicidade por cliente e competência.
+* **Gestão de Faturas:** Emissão individual e geração mensal por competência, acompanhamento de vencimento e situação do pagamento, valores em Reais (R$), controle de duplicidade e **exportação CSV com filtros e permissões por perfil**.
 * **Central de Chamados:** Abertura e acompanhamento de tickets com prioridades Baixa, Média e Alta e status Aberto, Em atendimento e Resolvido.
 * **Segurança e Autenticação:** Validação de credenciais no servidor, senhas armazenadas com hash `scrypt`, sessão por cookie `HttpOnly` e `SameSite=Strict`, proteção CSRF e permissões por perfil. Clientes acessam somente os seus dados.
 
@@ -77,12 +77,11 @@ O phpMyAdmin e o MySQL Workbench podem ser utilizados para consultar o banco. O 
 
 ---
 
-### 1. Clonar o Repositório
+### 1. Obter o código da Entrega 04
 
-```bash
-git clone --branch entrega3 https://github.com/luis2alves/ConnectNet.git
-cd ConnectNet
-```
+Use o arquivo `ConnectNet_Entrega04_Codigo.zip` deste material, extraindo a pasta `ConnectNet/`. O repositório histórico informado na Entrega 03 é `https://github.com/lusialves/ConnectNet`, mas esta atualização da Entrega 04 não foi publicada remotamente durante a preparação do pacote.
+
+Acesse a pasta extraída no terminal antes de executar os comandos seguintes.
 
 
 ### 2. Configurar o Banco de Dados (MySQL)
@@ -223,3 +222,18 @@ O objetivo central da aplicação é substituir processos manuais e planilhas de
 * Adrielly Ferraz de Oliveira Brito
 * Caroline Borges Albuquerque
 * Lusia Alves da Silva Sousa Neta
+
+---
+
+## Entrega 04 - Integração API/UI e evidências (13/10/2026 a 30/11/2026)
+
+A Entrega 04 preserva as oito tarefas de API (API01 a API08) e oito de UI (UI01 a UI08) implementadas e documentadas anteriormente. Acrescenta melhoria funcional integrada ao módulo financeiro:
+
+- `GET /api/v1/faturas/exportar`: retorna planilha CSV UTF-8 com cabeçalho, separador ponto e vírgula, filtro textual `q` e filtro `status`; valida sessão e perfil, restringe dados do cliente às próprias faturas e neutraliza possíveis fórmulas no CSV.
+- Na aba **Faturas**, o botão **Exportar CSV** baixa os registros conforme os filtros selecionados.
+- Foram acrescidos quatro testes HTTP à suíte da API: exportação e filtros, isolamento por perfil, sanitização de conteúdo e rejeição de filtro inválido.
+- Atualizados versão, documentação OpenAPI, matriz de rastreabilidade e material para acompanhamento no Trello.
+
+O arquivo `docs/ENTREGA04.md` detalha os requisitos, as tarefas e as evidências. O arquivo `docs/trello-entrega04.csv` serve para organizar/atualizar os cartões no Trello, mas **não constitui prova de sua publicação remota**. Registre no quadro as recomendações específicas discutidas com o professor, se houver, porque o enunciado disponibilizado não as discrimina.
+
+**Para verificar:** execute `npm ci`, `npm test`, `npm run test:ui` (com Chromium Playwright instalado) e, opcionalmente, `npm run test:mysql` em um MySQL compatível. O banco MariaDB deve ser validado localmente com suas próprias credenciais. Não execute dados de exemplo em uma instalação de produção.

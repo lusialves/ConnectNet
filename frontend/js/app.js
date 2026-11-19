@@ -100,7 +100,19 @@ async function collection(version) {
     for (const status of settings.statuses) { const option = element('option', null, labels[status]); option.value = status; select.append(option); } select.value = filters.status || ''; toolbar.append(select);
     select.addEventListener('change', () => { state.filters[name] = { q: input.value, status: select.value }; render().catch(handleError); });
   }
-  const search = button('Buscar', 'subtle'); search.type = 'submit'; toolbar.append(search, element('span', 'record-count', `${rows.length} registro${rows.length === 1 ? '' : 's'}`));
+  const search = button('Buscar', 'subtle'); search.type = 'submit'; toolbar.append(search);
+  if (name === 'faturas') {
+    toolbar.append(button('Exportar CSV', 'subtle', async () => {
+      try {
+        const exportFilters = new URLSearchParams();
+        if (input.value.trim()) exportFilters.set('q', input.value.trim());
+        if (select?.value) exportFilters.set('status', select.value);
+        await api.download(`/faturas/exportar?${exportFilters}`, 'connectnet-faturas.csv');
+        notify('Arquivo CSV gerado com os filtros selecionados.');
+      } catch (error) { handleError(error); }
+    }));
+  }
+  toolbar.append(element('span', 'record-count', `${rows.length} registro${rows.length === 1 ? '' : 's'}`));
   toolbar.addEventListener('submit', event => { event.preventDefault(); state.filters[name] = { q: input.value, status: select?.value || '' }; render().catch(handleError); });
   panel.append(toolbar, table(rows, name)); main.append(panel);
 }

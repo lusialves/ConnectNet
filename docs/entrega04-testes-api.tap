@@ -1,0 +1,167 @@
+TAP version 13
+# Subtest: ConnectNet API REST em modo demo
+    # Subtest: saúde e arquivos da UI respondem e recebem cabeçalhos de proteção
+    ok 1 - saúde e arquivos da UI respondem e recebem cabeçalhos de proteção
+      ---
+      duration_ms: 107.71418
+      type: 'test'
+      ...
+    # Subtest: rotas de dados exigem uma sessão válida
+    ok 2 - rotas de dados exigem uma sessão válida
+      ---
+      duration_ms: 66.167421
+      type: 'test'
+      ...
+    # Subtest: login devolve perfil e cookie HttpOnly sem expor o hash
+    ok 3 - login devolve perfil e cookie HttpOnly sem expor o hash
+      ---
+      duration_ms: 224.657258
+      type: 'test'
+      ...
+    # Subtest: credencial incorreta falha e tentativas repetidas são limitadas
+    ok 4 - credencial incorreta falha e tentativas repetidas são limitadas
+      ---
+      duration_ms: 271.326791
+      type: 'test'
+      ...
+    # Subtest: escritas rejeitam CSRF ausente ou malformado e origem externa
+    ok 5 - escritas rejeitam CSRF ausente ou malformado e origem externa
+      ---
+      duration_ms: 105.133904
+      type: 'test'
+      ...
+    # Subtest: CRUD de planos funciona e plano vinculado não pode ser excluído
+    ok 6 - CRUD de planos funciona e plano vinculado não pode ser excluído
+      ---
+      duration_ms: 100.458422
+      type: 'test'
+      ...
+    # Subtest: cadastro de cliente cria conta e atualização mantém o acesso sincronizado
+    ok 7 - cadastro de cliente cria conta e atualização mantém o acesso sincronizado
+      ---
+      duration_ms: 269.959964
+      type: 'test'
+      ...
+    # Subtest: alteração apenas da senha é aceita e preserva os demais dados
+    ok 8 - alteração apenas da senha é aceita e preserva os demais dados
+      ---
+      duration_ms: 188.179565
+      type: 'test'
+      ...
+    # Subtest: duplicidade de conta desfaz o cadastro parcial do cliente
+    ok 9 - duplicidade de conta desfaz o cadastro parcial do cliente
+      ---
+      duration_ms: 144.976475
+      type: 'test'
+      ...
+    # Subtest: desativar cliente invalida o acesso e exclusão preserva registros vinculados
+    ok 10 - desativar cliente invalida o acesso e exclusão preserva registros vinculados
+      ---
+      duration_ms: 141.565078
+      type: 'test'
+      ...
+    # Subtest: valida IDs, campos, valores e datas de calendário
+    ok 11 - valida IDs, campos, valores e datas de calendário
+      ---
+      duration_ms: 134.260333
+      type: 'test'
+      ...
+    # Subtest: fatura pode ser criada, quitada e excluída sem duplicar a competência
+    ok 12 - fatura pode ser criada, quitada e excluída sem duplicar a competência
+      ---
+      duration_ms: 98.239146
+      type: 'test'
+      ...
+    # Subtest: geração mensal é idempotente e inclui apenas clientes ativos
+    ok 13 - geração mensal é idempotente e inclui apenas clientes ativos
+      ---
+      duration_ms: 116.494427
+      type: 'test'
+      ...
+    # Subtest: duas gerações concorrentes não criam cobranças duplicadas
+    ok 14 - duas gerações concorrentes não criam cobranças duplicadas
+      ---
+      duration_ms: 108.096678
+      type: 'test'
+      ...
+    # Subtest: cliente acessa somente seus dados e não administra o provedor
+    ok 15 - cliente acessa somente seus dados e não administra o provedor
+      ---
+      duration_ms: 96.747149
+      type: 'test'
+      ...
+    # Subtest: suporte atualiza chamados e não acessa o financeiro nem exclui registros
+    ok 16 - suporte atualiza chamados e não acessa o financeiro nem exclui registros
+      ---
+      duration_ms: 98.913692
+      type: 'test'
+      ...
+    # Subtest: CRUD de chamados aceita prioridades válidas e filtra os resultados
+    ok 17 - CRUD de chamados aceita prioridades válidas e filtra os resultados
+      ---
+      duration_ms: 98.87838
+      type: 'test'
+      ...
+    # Subtest: cliente abre chamado próprio e tentativa de usar outro ID é rejeitada
+    ok 18 - cliente abre chamado próprio e tentativa de usar outro ID é rejeitada
+      ---
+      duration_ms: 91.313434
+      type: 'test'
+      ...
+    # Subtest: exportação CSV de faturas respeita cabeçalhos e status
+    ok 19 - exportação CSV de faturas respeita cabeçalhos e status
+      ---
+      duration_ms: 84.70762
+      type: 'test'
+      ...
+    # Subtest: exportação CSV aplica isolamento entre clientes e bloqueia suporte
+    ok 20 - exportação CSV aplica isolamento entre clientes e bloqueia suporte
+      ---
+      duration_ms: 129.775408
+      type: 'test'
+      ...
+    # Subtest: exportação CSV neutraliza fórmulas e protege caracteres do texto
+    ok 21 - exportação CSV neutraliza fórmulas e protege caracteres do texto
+      ---
+      duration_ms: 88.156512
+      type: 'test'
+      ...
+    # Subtest: filtro inválido na exportação CSV retorna erro estruturado
+    ok 22 - filtro inválido na exportação CSV retorna erro estruturado
+      ---
+      duration_ms: 85.469059
+      type: 'test'
+      ...
+    # Subtest: logout encerra a sessão no servidor
+    ok 23 - logout encerra a sessão no servidor
+      ---
+      duration_ms: 86.075377
+      type: 'test'
+      ...
+    # Subtest: erros de JSON e endpoint são explícitos e não expõem detalhes internos
+    ok 24 - erros de JSON e endpoint são explícitos e não expõem detalhes internos
+      ---
+      duration_ms: 101.438415
+      type: 'test'
+      ...
+    # Subtest: senha com espaços é armazenada e verificada sem alteração
+    ok 25 - senha com espaços é armazenada e verificada sem alteração
+      ---
+      duration_ms: 169.986697
+      type: 'test'
+      ...
+    1..25
+ok 1 - ConnectNet API REST em modo demo
+  ---
+  duration_ms: 3211.900714
+  type: 'suite'
+  ...
+1..1
+# tests 25
+# suites 1
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3380.912885

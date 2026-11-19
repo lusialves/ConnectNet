@@ -1,8 +1,8 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "ConnectNet Entrega 3",
-    "version": "3.0.0",
+    "title": "ConnectNet Entrega 4",
+    "version": "4.0.0",
     "description": "Permissões e regras detalhadas em API.md. Rotas autenticadas usam cookie de sessão e escritas usam token CSRF."
   },
   "servers": [
@@ -2356,6 +2356,54 @@
                 "$ref": "#/components/schemas/GerarFaturas"
               }
             }
+          }
+        }
+      }
+    },
+    "/faturas/exportar": {
+      "get": {
+        "summary": "Exportar faturas filtradas em CSV (ADMIN ou CLIENTE)",
+        "description": "Mantém filtro q/status e restringe faturas ao próprio cliente. Resposta UTF-8 com BOM e proteção contra fórmula em células.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "PENDENTE",
+                "PAGA",
+                "CANCELADA"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Arquivo CSV para download",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sessão necessária"
+          },
+          "403": {
+            "description": "Perfil sem permissão"
+          },
+          "400": {
+            "description": "Filtro inválido"
           }
         }
       }

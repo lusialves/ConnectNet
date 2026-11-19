@@ -1,4 +1,4 @@
-# Validação MySQL do ConnectNet Entrega 3
+# Validação MySQL do ConnectNet Entrega 4
 
 Em 09/10/2026, o ConnectNet foi executado com MySQL real **8.0.46-0ubuntu0.24.04.3**, Node.js v24.19.0 e mysql2 3.24.5. Foram aprovados **30 testes da API e do banco**, **15 verificações da interface** e a comparação dos registros após reiniciar a aplicação e o próprio MySQL. A validação ocorreu em ambiente isolado com dados fictícios.
 

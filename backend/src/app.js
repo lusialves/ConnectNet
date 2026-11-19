@@ -1,5 +1,6 @@
 'use strict';
 const express = require('express');
+const { invoicesCsv } = require('./csv');
 const path = require('node:path');
 const { createAuth, allow } = require('./auth');
 const { createServices } = require('./services');
@@ -19,7 +20,7 @@ function createApp(repo, config) {
   app.use(express.json({ limit: '32kb' }));
   const router = express.Router();
   const ok = (res, dados, status = 200) => res.status(status).json({ dados });
-  router.get('/saude', async (req, res) => { await repo.list('planos'); ok(res, { status: 'ok', sistema: 'ConnectNet', versao: '3.0.0', modo: repo.mode }); });
+  router.get('/saude', async (req, res) => { await repo.list('planos'); ok(res, { status: 'ok', sistema: 'ConnectNet', versao: '4.0.0', modo: repo.mode }); });
   router.post('/auth/login', async (req, res) => {
     const email = v.email(req.body?.email); const senha = req.body?.senha;
     if (typeof senha !== 'string' || senha.length < 1 || senha.length > 128) v.fail('Informe a senha.');
@@ -43,6 +44,12 @@ function createApp(repo, config) {
   router.delete('/clientes/:id', allow('ADMIN'), async (req, res) => { await service.remove('clientes', v.id(req.params.id)); res.status(204).end(); });
 
   router.get('/faturas', allow('ADMIN', 'CLIENTE'), async (req, res) => ok(res, await service.list('faturas', req.user, req.query)));
+  router.get('/faturas/exportar', allow('ADMIN', 'CLIENTE'), async (req, res) => {
+    const invoices = await service.list('faturas', req.user, req.query);
+    res.set('Content-Type', 'text/csv; charset=utf-8');
+    res.set('Content-Disposition', 'attachment; filename=connectnet-faturas.csv');
+    res.status(200).send(invoicesCsv(invoices));
+  });
   router.get('/faturas/:id', allow('ADMIN', 'CLIENTE'), async (req, res) => ok(res, await service.get('faturas', v.id(req.params.id), req.user)));
   router.post('/faturas/gerar', allow('ADMIN'), async (req, res) => ok(res, await service.generateInvoices(req.body), 201));
   router.post('/faturas', allow('ADMIN'), async (req, res) => ok(res, await service.createInvoice(req.body), 201));

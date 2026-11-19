@@ -115,6 +115,43 @@ describe(`ConnectNet API REST em modo ${mode}`, () => {
     const client = await login('cliente@connectnet.local'); assert.equal((await request('/chamados', { method: 'POST', body: { cliente_id: 2, descricao: 'Solicitação indevida' } }, client)).status, 403);
     const created = await request('/chamados', { method: 'POST', body: { descricao: 'Solicito verificação do Wi-Fi.' } }, client); assert.equal(created.status, 201); assert.equal(created.body.dados.cliente_id, 1);
   });
+  test('exportação CSV de faturas respeita cabeçalhos e status', async () => {
+    const admin = await login();
+    const res = await fetch(base + '/faturas/exportar?status=PENDENTE', { headers: { Cookie: admin.cookie } });
+    assert.equal(res.status, 200);
+    assert.match(res.headers.get('content-type'), /text\/csv/);
+    assert.match(res.headers.get('content-disposition'), /attachment/);
+    const bytes = new Uint8Array(await res.arrayBuffer());
+    assert.deepEqual(Array.from(bytes.slice(0, 3)), [0xEF, 0xBB, 0xBF]);
+    const csv = new TextDecoder().decode(bytes);
+    assert.match(csv, /"Competência"/);
+    assert.match(csv, /"PENDENTE"/);
+    assert.doesNotMatch(csv, /"PAGA"/);
+  });
+  test('exportação CSV aplica isolamento entre clientes e bloqueia suporte', async () => {
+    const client = await login('cliente@connectnet.local');
+    const res = await fetch(base + '/faturas/exportar', { headers: { Cookie: client.cookie } });
+    assert.equal(res.status, 200);
+    const csv = await res.text(); assert.match(csv, /Ana Oliveira/); assert.doesNotMatch(csv, /Bruno Santos/);
+    const support = await login('suporte@connectnet.local');
+    assert.equal((await fetch(base + '/faturas/exportar', { headers: { Cookie: support.cookie } })).status, 403);
+    assert.equal((await fetch(base + '/faturas/exportar')).status, 401);
+  });
+  test('exportação CSV neutraliza fórmulas e protege caracteres do texto', async () => {
+    const admin = await login();
+    const result = await request('/clientes/1', { method: 'PUT', body: { nome: '=HYPERLINK("https://test.example", "abrir")' } }, admin);
+    assert.equal(result.status, 200);
+    const res = await fetch(base + '/faturas/exportar', { headers: { Cookie: admin.cookie } });
+    const csv = await res.text();
+    assert.match(csv, /'\=HYPERLINK/);
+    assert.match(csv, /""https:\/\/test\.example""/);
+  });
+  test('filtro inválido na exportação CSV retorna erro estruturado', async () => {
+    const admin = await login();
+    const res = await fetch(base + '/faturas/exportar?status=DESCONHECIDO', { headers: { Cookie: admin.cookie } });
+    assert.equal(res.status, 400);
+    assert.equal((await res.json()).erro.codigo, 'DADOS_INVALIDOS');
+  });
   test('logout encerra a sessão no servidor', async () => { const admin = await login(); assert.equal((await request('/auth/logout', { method: 'POST' }, admin)).status, 200); assert.equal((await request('/auth/me', {}, admin)).status, 401); });
   test('erros de JSON e endpoint são explícitos e não expõem detalhes internos', async () => {
     const response = await fetch(base + '/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{invalid' }); assert.equal(response.status, 400); assert.equal((await response.json()).erro.codigo, 'JSON_INVALIDO');

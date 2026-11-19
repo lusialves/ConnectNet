@@ -27,6 +27,7 @@ Base: `/api/v1`. O frontend é servido pelo mesmo Express, evitando configuraç�
 | PUT | /clientes/{id} | Admin; atualizar cadastro e senha opcional |
 | DELETE | /clientes/{id} | Admin; remover cliente sem faturas ou chamados |
 | GET | /faturas e /faturas/{id} | Admin ou o próprio cliente |
+| GET | /faturas/exportar | Admin ou cliente; CSV filtrado apenas das faturas permitidas ao perfil |
 | POST | /faturas | Admin; emitir uma cobrança |
 | POST | /faturas/gerar | Admin; gerar competência para os clientes ativos |
 | PUT | /faturas/{id} | Admin; atualizar valor, vencimento ou status |
@@ -66,3 +67,12 @@ Formato: `{ "erro": { "codigo": "DADOS_INVALIDOS", "mensagem": "..." } }`.
 | 500 | Erro interno sem exposição de detalhes sensíveis |
 
 O contrato legível por ferramentas está em `openapi.json`. A implantação demonstrada é acadêmica; sessões são locais ao processo e este pacote não integra cobrança bancária, pagamento automático ou equipamentos de rede.
+
+
+## Novidade da Entrega 04 - exportação CSV
+
+`GET /api/v1/faturas/exportar?status=PENDENTE&q=Ana` gera arquivo CSV de faturas. A rota aceita os filtros de listagem (`q` e `status`) e não permite que um cliente exporte faturas de terceiros. O suporte recebe HTTP 403.
+
+O CSV inclui BOM UTF-8 e campos delimitados por aspas e separados por ponto e vírgula; entradas iniciadas por caracteres de fórmula são neutralizadas. O endpoint retorna `Content-Disposition: attachment`.
+
+Os testes da API desta versão foram executados em modo demo em 18/11/2026: **25 aprovados, zero falhas**. Isso não substitui a validação em MariaDB/MySQL e navegador no ambiente da equipe.

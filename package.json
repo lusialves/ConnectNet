@@ -3,10 +3,10 @@
     "express": "5.2.1",
     "mysql2": "3.24.5"
   },
-  "name": "connectnet-entrega3",
-  "version": "3.0.0",
+  "name": "connectnet-entrega4",
+  "version": "4.0.0",
   "private": true,
-  "description": "ConnectNet - API e interface da Entrega 3",
+  "description": "ConnectNet - integração UI/API, evidências e melhorias da Entrega 4",
   "engines": {
     "node": ">=22"
   },

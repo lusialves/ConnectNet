@@ -1,0 +1,11 @@
+{
+  "tests": 25,
+  "pass": 25,
+  "fail": 0,
+  "cancelled": 0,
+  "skipped": 0,
+  "data": "2026-11-18",
+  "ambiente": "Node.js 22.16.0; repositório demo; localhost; testes automatizados node:test",
+  "navegador": "Não executado nesta sessão: o Chromium do ambiente bloqueou qualquer navegação com ERR_BLOCKED_BY_ADMINISTRATOR. Capturas da Entrega 03 são históricas.",
+  "mysql": "Não executado nesta sessão; resultados de MySQL/MariaDB reportados no PDF da Entrega 03 são históricos."
+}

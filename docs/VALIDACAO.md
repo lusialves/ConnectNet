@@ -1,4 +1,4 @@
-# Validação do ConnectNet Entrega 3
+# Validação do ConnectNet Entrega 4
 
 Validada em 09/10/2026 com dados fictícios, tanto em modo demo quanto com MySQL 8.0.46 real, em ambiente isolado. A API, as regras do banco, a interface e a persistência após reinícios foram aprovadas. Detalhes em [VALIDACAO_MYSQL.md](VALIDACAO_MYSQL.md).
 
