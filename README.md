@@ -225,7 +225,7 @@ O objetivo central da aplicação é substituir processos manuais e planilhas de
 
 ---
 
-## Entrega 04 - Integração API/UI e evidências (13/10/2026 a 30/11/2026)
+## Entrega 04 - Integração API/UI e evidências
 
 A Entrega 04 preserva as oito tarefas de API (API01 a API08) e oito de UI (UI01 a UI08) implementadas e documentadas anteriormente. Acrescenta melhoria funcional integrada ao módulo financeiro:
 
